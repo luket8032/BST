@@ -1,6 +1,6 @@
 const Node = (data, left = null, right = null) => {
-    return {data, left, right}
-}
+    return { data, left, right };
+  };
 
 const Tree = (inputArr) => {
     const sortArr = (arr) => {
@@ -11,9 +11,9 @@ const Tree = (inputArr) => {
     const buildTree = (arr, start, end) => {
         const sortedArr = sortArr(arr);
         if(start > end) return null;
-        const mid = (start + end) / 2;
-        const root = new Node(sortedArr[mid]);
-        root.left = buildTree(sortedArr, 0, mid - 1);
+        const mid = parseInt((start + end) / 2);
+        const root = Node(sortedArr[mid]);
+        root.left = buildTree(sortedArr, start, mid - 1);
         root.right = buildTree(sortedArr, mid + 1, end)
         return root;
     }
@@ -31,5 +31,13 @@ const Tree = (inputArr) => {
         }
       };
 
-    return { buildTree, prettyPrint }
+    const bst = prettyPrint(buildTree(inputArr, 0, inputArr.length - 1));
+
+    return { prettyPrint, bst }
 }
+
+const test = [40, 100, 1, 5, 25, 10];
+
+const testTree = Tree(test);
+
+console.log(testTree.bst);
