@@ -3,10 +3,12 @@ const Node = (data, left = null, right = null) => {
   };
 
 const Tree = (inputArr) => {
+    let bst = null;
+
     const sortArr = (arr) => {
         let sorted = [...new Set(arr.sort(function(a, b){return a-b}))];
-        return sorted
-    }
+        return sorted;
+    };
 
     const buildTree = (arr, start, end) => {
         const sortedArr = sortArr(arr);
@@ -16,7 +18,25 @@ const Tree = (inputArr) => {
         root.left = buildTree(sortedArr, start, mid - 1);
         root.right = buildTree(sortedArr, mid + 1, end)
         return root;
-    }
+    };
+
+    const insert = (data) => {
+        bst = insertRec(bst, data);
+    } 
+
+    const insertRec = (root, data) => {
+        if(root === null) {
+            return Node(data);
+        }
+        
+        if(data < root.data) {
+            root.left = insertRec(root.left, data);
+        } else if (data > root.data) {
+            root.right = insertRec(root.right, data);
+        }
+
+        return root;
+    };
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
@@ -31,13 +51,19 @@ const Tree = (inputArr) => {
         }
       };
 
-    const bst = prettyPrint(buildTree(inputArr, 0, inputArr.length - 1));
+    bst = buildTree(inputArr, 0, inputArr.length - 1);
 
-    return { prettyPrint, bst }
+    return { prettyPrint, insert, bst };
 }
 
 const test = [40, 100, 1, 5, 25, 10];
 
 const testTree = Tree(test);
 
-console.log(testTree.bst);
+testTree.insert(3);
+testTree.insert(40);
+testTree.insert(50);
+testTree.insert(60);
+testTree.insert(110);
+
+console.log(testTree.prettyPrint(testTree.bst));
