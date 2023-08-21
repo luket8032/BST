@@ -48,24 +48,23 @@ const Tree = (inputArr) => {
         }
 
         if(root.data > data) {
-            deleteRec(root.left, data);
+            root.left = deleteRec(root.left, data);
+            return root;
         } else if (root.data < data) {
-            deleteRec(root.right, data);
+            root.right = deleteRec(root.right, data);
+            return root;
         }
 
         if (root.left === null) {
             let temp = root.right;
-            delete root;
+            root = null;
             return temp;
         } else if (root.right === null) {
             let temp = root.left;
-            delete root;
+            root = null;
             return temp;
-        }
-
-        else {
+        } else if (root.right != null && root.left != null) {
             let succParent = root;
-
             let succ = root.right;
             while (succ.left !== null) {
                 succParent = succ;
@@ -78,11 +77,12 @@ const Tree = (inputArr) => {
                 succParent.right = succ.right;
             }
 
-            root.key = succ.key;
-
-            delete succ;
+            root.data = succ.data;
+            succ = null;
             return root;
         }
+
+
     }
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -100,18 +100,12 @@ const Tree = (inputArr) => {
 
     bst = buildTree(inputArr, 0, inputArr.length - 1);
 
-    return { prettyPrint, insert, deleteNode, bst };
+    return { prettyPrint, insert, deleteNode, deleteRec, bst };
 }
 
 const test = [40, 100, 1, 5, 25, 10];
 
 const testTree = Tree(test);
-
-testTree.insert(40);
-testTree.insert(50);
-testTree.insert(60);
-testTree.insert(110);
-
-testTree.deleteNode(100);
+testTree.deleteNode(10);
 
 console.log(testTree.prettyPrint(testTree.bst));
