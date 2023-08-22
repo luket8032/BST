@@ -86,6 +86,8 @@ const Tree = (inputArr) => {
     const find = (root, data) => {
         if (root.data === data) {
             return root;
+        } else if (!root.left || !root.right) {
+            return "Node does not exist."
         }
 
         if (root.data > data) {
@@ -113,9 +115,9 @@ const Tree = (inputArr) => {
     return { prettyPrint, insert, deleteNode, find, bst };
 }
 
-const test = [40, 100, 1, 5, 25, 10];
+const test = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const testTree = Tree(test);
-console.log(testTree.find(testTree.bst, 10))
+console.log(testTree.find(testTree.bst, 7))
 
 // console.log(testTree.prettyPrint(testTree.bst));
