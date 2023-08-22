@@ -97,6 +97,26 @@ const Tree = (inputArr) => {
         }
     };
 
+    const levelOrder = () => {
+        let queue = [], visited = [], current = bst;
+        queue.push(current);
+
+        while (queue.length) {
+            current = queue.shift();
+            visited.push(current.data);
+
+            if (current.left) {
+                queue.push(current.left);
+            }
+
+            if (current.right) {
+                queue.push(current.right);
+            }
+        }
+
+        return visited
+    }
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -112,12 +132,12 @@ const Tree = (inputArr) => {
 
     bst = buildTree(inputArr, 0, inputArr.length - 1);
 
-    return { prettyPrint, insert, deleteNode, find, bst };
+    return { prettyPrint, insert, deleteNode, find, levelOrder, bst };
 }
 
-const test = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const testTree = Tree(test);
-console.log(testTree.find(testTree.bst, 7))
 
-// console.log(testTree.prettyPrint(testTree.bst));
+console.log(testTree.prettyPrint(testTree.bst));
+console.log(testTree.levelOrder());
