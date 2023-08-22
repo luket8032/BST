@@ -117,6 +117,32 @@ const Tree = (inputArr) => {
         return visited
     }
 
+    const preOrder = () => {
+        let visited = [], current = bst;
+
+        const traverse = (node) => {
+            visited.push(node.data);
+            if(node.left) { traverse(node.left) }
+            if(node.right) { traverse(node.right) }
+        };
+
+        traverse(current);
+        return visited;
+    }
+
+    const postOrder = () => {
+        let visited = [], current = bst;
+
+        const traverse = (node) => {
+            if(node.left) { traverse(node.left) }
+            if(node.right) { traverse(node.right) }
+            visited.push(node.data);
+        };
+
+        traverse(current);
+        return visited;
+    }
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -132,7 +158,17 @@ const Tree = (inputArr) => {
 
     bst = buildTree(inputArr, 0, inputArr.length - 1);
 
-    return { prettyPrint, insert, deleteNode, find, levelOrder, bst };
+    return { 
+        prettyPrint,
+        insert,
+        deleteNode,
+        find,
+        levelOrder,
+        preOrder,
+        postOrder,
+
+        bst
+    };
 }
 
 const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -140,4 +176,4 @@ const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const testTree = Tree(test);
 
 console.log(testTree.prettyPrint(testTree.bst));
-console.log(testTree.levelOrder());
+console.log(testTree.postOrder());
