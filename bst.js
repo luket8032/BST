@@ -22,7 +22,7 @@ const Tree = (inputArr) => {
 
     const insert = (data) => {
         bst = insertRec(bst, data);
-    } 
+    } ;
 
     const insertRec = (root, data) => {
         if(root === null) {
@@ -40,7 +40,7 @@ const Tree = (inputArr) => {
 
     const deleteNode = (data) => {
         bst = deleteRec(bst, data);
-    }
+    };
 
     const deleteRec = (root, data) => {
         if(root.data === null) {
@@ -81,9 +81,19 @@ const Tree = (inputArr) => {
             succ = null;
             return root;
         }
+    };
 
+    const find = (root, data) => {
+        if (root.data === data) {
+            return root;
+        }
 
-    }
+        if (root.data > data) {
+            return find(root.left, data)
+        } else if (root.data < data) {
+            return find(root.right, data)
+        }
+    };
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
@@ -96,16 +106,16 @@ const Tree = (inputArr) => {
         if (node.left !== null) {
           prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
         }
-      };
+    };
 
     bst = buildTree(inputArr, 0, inputArr.length - 1);
 
-    return { prettyPrint, insert, deleteNode, deleteRec, bst };
+    return { prettyPrint, insert, deleteNode, find, bst };
 }
 
 const test = [40, 100, 1, 5, 25, 10];
 
 const testTree = Tree(test);
-testTree.deleteNode(10);
+console.log(testTree.find(testTree.bst, 10))
 
-console.log(testTree.prettyPrint(testTree.bst));
+// console.log(testTree.prettyPrint(testTree.bst));
