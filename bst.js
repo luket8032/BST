@@ -143,6 +143,19 @@ const Tree = (inputArr) => {
         return visited;
     }
 
+    const inOrder = () => {
+        let visited = [], current = bst;
+
+        const traverse = (node) => {
+            if(node.left) { traverse(node.left) }
+            visited.push(node.data);
+            if(node.right) { traverse(node.right) }
+        };
+
+        traverse(current);
+        return visited;
+    }
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -166,7 +179,7 @@ const Tree = (inputArr) => {
         levelOrder,
         preOrder,
         postOrder,
-
+        inOrder,
         bst
     };
 }
@@ -176,4 +189,4 @@ const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const testTree = Tree(test);
 
 console.log(testTree.prettyPrint(testTree.bst));
-console.log(testTree.postOrder());
+console.log(testTree.inOrder());
