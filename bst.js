@@ -179,6 +179,17 @@ const Tree = (inputArr) => {
         return dist;
     };
 
+    const isBalanced = (node) => {
+        if(node === null) return "There is nothing";
+        const lHeight = height(node.left);
+        const rHeight = height(node.right);
+        
+        const diff = Math.abs(lHeight - rHeight);
+
+        if (diff <= 1) return "Balanced";
+        else return "Not balanced";
+    }
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -205,13 +216,14 @@ const Tree = (inputArr) => {
         inOrder,
         height,
         depth,
+        isBalanced,
         bst
     };
 }
 
-const test = [1, 2, 3, 4, 5];
+const test = [1, 2, 4, 5, 6, 7, 8, 9, 10];
 
 const testTree = Tree(test);
 
 console.log(testTree.prettyPrint(testTree.bst));
-console.log(testTree.depth(testTree.bst, 4));
+console.log(testTree.isBalanced(testTree.bst));
