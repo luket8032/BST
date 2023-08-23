@@ -177,10 +177,10 @@ const Tree = (inputArr) => {
         return dist;
     };
 
-    const isBalanced = (node) => {
-        if(node === null) return "There is nothing";
-        const lHeight = height(node.left);
-        const rHeight = height(node.right);
+    const isBalanced = () => {
+        if(bst === null) return "There is nothing";
+        const lHeight = height(bst.left);
+        const rHeight = height(bst.right);
         
         const diff = Math.abs(lHeight - rHeight);
 
@@ -189,8 +189,8 @@ const Tree = (inputArr) => {
     };
 
     const reBalance = () => {
-        const reBalanceArr = levelOrder(bst);
-        bst = buildTree(reBalanceArr)
+        const reBalanceArr = inOrder(bst);
+        bst = buildTree(reBalanceArr, 0, reBalanceArr.length - 1);
     };
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
