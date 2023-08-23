@@ -1,6 +1,4 @@
-const Node = (data, left = null, right = null) => {
-    return { data, left, right };
-  };
+const Node =  require('./node.js');
 
 const Tree = (inputArr) => {
     let bst = null;
@@ -227,9 +225,11 @@ const Tree = (inputArr) => {
     };
 }
 
-const test = [1, 2, 4, 5, 6, 7, 8, 9, 10];
+module.exports = Tree;
 
-const testTree = Tree(test);
+// TESTS
+// const testArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-console.log(testTree.prettyPrint(testTree.bst));
-console.log(testTree.isBalanced(testTree.bst));
+// const testTree = Tree(testArr);
+
+// testTree.prettyPrint(testTree.bst);
