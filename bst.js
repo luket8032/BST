@@ -87,13 +87,13 @@ const Tree = (inputArr) => {
         if (root.data === data) {
             return root;
         } else if (!root.left || !root.right) {
-            return "Node does not exist."
+            return "Node does not exist.";
         }
 
         if (root.data > data) {
-            return find(root.left, data)
+            return find(root.left, data);
         } else if (root.data < data) {
-            return find(root.right, data)
+            return find(root.right, data);
         }
     };
 
@@ -115,33 +115,33 @@ const Tree = (inputArr) => {
         }
 
         return visited
-    }
+    };
 
     const preOrder = () => {
         let visited = [], current = bst;
 
         const traverse = (node) => {
             visited.push(node.data);
-            if(node.left) { traverse(node.left) }
-            if(node.right) { traverse(node.right) }
+            if(node.left) { traverse(node.left); }
+            if(node.right) { traverse(node.right); }
         };
 
         traverse(current);
         return visited;
-    }
+    };
 
     const postOrder = () => {
         let visited = [], current = bst;
 
         const traverse = (node) => {
-            if(node.left) { traverse(node.left) }
-            if(node.right) { traverse(node.right) }
+            if(node.left) { traverse(node.left); }
+            if(node.right) { traverse(node.right); }
             visited.push(node.data);
         };
 
         traverse(current);
         return visited;
-    }
+    };
 
     const inOrder = () => {
         let visited = [], current = bst;
@@ -154,7 +154,30 @@ const Tree = (inputArr) => {
 
         traverse(current);
         return visited;
-    }
+    };
+
+    const height = (node) => {
+        if (node === null) {
+            return 0;
+        } else {
+            let lHeight = height(node.left);
+            let rHeight = height(node.right);
+
+            if (lHeight > rHeight) return lHeight + 1;
+            else return rHeight + 1;
+        }
+    };
+
+    const depth = (node, targetNodeVal) => {
+        if (node === null) return -1;
+
+        let dist = -1;
+
+        if((node.data === targetNodeVal) || (dist = depth(node.left, targetNodeVal) >= 0) || (dist = depth(node.right, targetNodeVal)) >= 0) {
+            return dist + 1;
+        }
+        return dist;
+    };
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
@@ -180,13 +203,15 @@ const Tree = (inputArr) => {
         preOrder,
         postOrder,
         inOrder,
+        height,
+        depth,
         bst
     };
 }
 
-const test = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const test = [1, 2, 3, 4, 5];
 
 const testTree = Tree(test);
 
 console.log(testTree.prettyPrint(testTree.bst));
-console.log(testTree.inOrder());
+console.log(testTree.depth(testTree.bst, 4));
