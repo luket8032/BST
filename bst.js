@@ -188,7 +188,12 @@ const Tree = (inputArr) => {
 
         if (diff <= 1) return "Balanced";
         else return "Not balanced";
-    }
+    };
+
+    const reBalance = () => {
+        const reBalanceArr = levelOrder(bst);
+        bst = buildTree(reBalanceArr)
+    };
 
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
@@ -217,6 +222,7 @@ const Tree = (inputArr) => {
         height,
         depth,
         isBalanced,
+        reBalance,
         bst
     };
 }
